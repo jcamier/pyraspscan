@@ -1,5 +1,18 @@
 import asyncio
 import serial_asyncio
+import aiohttp
+
+endpoint = 'http://localhost:8000/scan'
+
+session = aiohttp.ClientSession()
+loop = asyncio.get_event_loop()
+
+async def post_data(data):
+    post_data = {'data':data.decode()}
+    async with session.post(endpoint, data=post_data) as resp:
+        print('hitting endpoint')
+        print(resp.status)
+        print(await resp.text())
 
 class Output(asyncio.Protocol):
     def connection_made(self, transport):
@@ -10,6 +23,7 @@ class Output(asyncio.Protocol):
 
     def data_received(self, data):
         print('data received', repr(data))
+        loop.create_task(post_data(data))
         if b'\n' in data:
             self.transport.close()
 
@@ -25,7 +39,6 @@ class Output(asyncio.Protocol):
         print(self.transport.get_write_buffer_size())
         print('resume writing')
 
-loop = asyncio.get_event_loop()
 coro = serial_asyncio.create_serial_connection(loop, Output, '/dev/ttyACM0', baudrate=115200)
 loop.run_until_complete(coro)
 loop.run_forever()
