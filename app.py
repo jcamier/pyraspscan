@@ -7,14 +7,40 @@ from settings import config
 session = aiohttp.ClientSession()
 loop = asyncio.get_event_loop()
 
+valid_commands = ["U"]  # User
+
+
+def validateScan(data):
+    if str(data).startswith(config.magic_str):
+        if data[len(config.magic_str)] in valid_commands:
+            return True
+    return False
+
+
+def parse_scan(data):
+    command = data[len(config.magic_str)]
+    payload = data[len(config.magic_str) + 1 :]
+    return command, payload
+
 
 async def post_data(data):
+    data = data.decode().strip()
+
+    if not validateScan(data):
+        print(f"Got invalid scan data {data}")
+        return
+
+    command, payload = parse_scan(data)
+
     post_data = {
-        "data": data.decode().strip(),
-        "machine": config.machine_id,
-        "port": config.serial_port,
+        "data": {
+            "command": command,
+            "payload": payload,
+            "machine": config.machine_id,
+            "port": config.serial_port,
+        }
     }
-    async with session.post(config.endpoint, data=post_data) as resp:
+    async with session.post(config.endpoint, json=post_data) as resp:
         print("hitting endpoint")
         print(resp.status)
         print(await resp.text())
