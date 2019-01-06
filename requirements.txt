@@ -1,3 +1,5 @@
 aiohttp==3.5.1
 pyserial-asyncio==0.4
 hug==2.4.1
+python-dotenv
+dotmap

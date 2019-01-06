@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/home/jvogel/.pyenv/versions/pyraspscan/bin/python",
+    "python.formatting.provider": "black"
+}
