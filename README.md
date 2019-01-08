@@ -2,6 +2,27 @@
 Barcode Scanning for Raspberry Pi
 created by Jim Vogel and Jacques Camier
 
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+nano ~/.bashrc
+
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+`source ~/.bashrc`
+
+pyenv install 3.7.2
+cd pyraspscan
+pyenv global 3.7.2
+pyenv virtualenv pyraspscan
+pyenv local pyraspscan
+pip install -r requirements.txt
+
 Instructions:
 
 put barcode scanner in USB virtual COM mode
