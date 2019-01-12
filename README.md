@@ -18,7 +18,7 @@ build requirements
 ```bash
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 ```
 
 pyenv installer
@@ -43,6 +43,12 @@ then run:
 
 `source ~/.bashrc`
 
+### Clone the repo
+
+```bash
+git clone https://github.com/jcamier/pyraspscan.git
+```
+
 ### Install Python 3.7.2 and create virtual environment
 
 run these commands
@@ -55,10 +61,9 @@ pyenv virtualenv pyraspscan
 pyenv local pyraspscan
 ```
 
-### Git clone raspscan and install necessary python packages, assumes you already have git installed
+### install necessary python packages
 
 ```bash
-git clone https://github.com/jcamier/pyraspscan.git
 pip install -r requirements.txt
 ```
 
