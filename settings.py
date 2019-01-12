@@ -13,3 +13,9 @@ config.baud = int(getenv("BAUD", "115200"))
 config.machine_id = getenv("MACHINE_ID", "dev_machine")
 config.magic_str = getenv("MAGIC_CHARS", "cv")
 
+config.api_key = getenv("API_KEY", "jackjim")
+
+if __name__ == "__main__":
+    with open(".env", "w") as f:
+        for key, value in config.items():
+            f.write(f"{str(key).upper()}={value}\n")

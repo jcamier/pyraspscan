@@ -38,6 +38,7 @@ async def post_data(data):
             "payload": payload,
             "machine": config.machine_id,
             "port": config.serial_port,
+            "api_key": config.api_key,
         }
     }
     async with session.post(config.endpoint, json=post_data) as resp:
