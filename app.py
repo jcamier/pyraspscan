@@ -7,13 +7,10 @@ from settings import config
 session = aiohttp.ClientSession()
 loop = asyncio.get_event_loop()
 
-valid_commands = ["U"]  # User
-
 
 def validateScan(data):
     if str(data).startswith(config.magic_str):
-        if data[len(config.magic_str)] in valid_commands:
-            return True
+        return True
     return False
 
 
